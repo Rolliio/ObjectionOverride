@@ -56,6 +56,14 @@
             justify-self: center;
             max-width: 300px;
         }
+        .success-button {
+            background-color: #ff3b3f;
+            color: #0d3b39;
+            font-weight: bold;
+        }
+        .success-button:hover {
+            background-color: #ff6b6e;
+        }
         .response-card {
             background-color: #0d3b39;
             border: 2px solid #ff3b3f;
@@ -115,6 +123,10 @@
             {
                 rejection: "Where did you get my number?",
                 reply: "Would you believe me if I said I guessed it?"
+            },
+            {
+                rejection: "YESSS, I got a meeting",
+                reply: "Congratulations on securing the meeting! Great job overcoming objections and making progress with the prospect."
             }
         ];
 
@@ -125,8 +137,11 @@
         responses.forEach((item, index) => {
             const button = document.createElement('button');
             button.textContent = item.rejection;
-            if (index === responses.length - 1) {
+            if (index === responses.length - 2 || index === responses.length - 1) {
                 button.classList.add('center-button');
+            }
+            if (index === responses.length - 1) {
+                button.classList.add('success-button');
             }
             button.addEventListener('click', () => {
                 responseText.textContent = item.reply;
