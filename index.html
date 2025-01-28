@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ObjectionOverride</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>ObjectionOverride</h1>
+        <select id="objections" onchange="showResponse()">
+            <option value="">Select Objection</option>
+            <option value="notInterested">I'm not interested.</option>
+            <option value="workingWithSomeone">We're already working with someone.</option>
+            <option value="callBackLater">Call me back later.</option>
+            <option value="sendInfo">Send me some information.</option>
+            <option value="tooExpensive">It's too expensive.</option>
+            <option value="noBudget">We don't have the budget right now.</option>
+            <option value="busyNow">I'm busy right now.</option>
+            <option value="thinkAboutIt">I need to think about it.</option>
+            <option value="speakWithSomeone">I need to speak with someone else.</option>
+            <option value="happyWithCurrent">I'm happy with what we have.</option>
+        </select>
+        <p id="response"></p>
+        <button onclick="resetSelection()">Reset</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
