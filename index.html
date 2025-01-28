@@ -82,6 +82,12 @@
             color: #ffffff;
             margin-bottom: 0;
         }
+        .response-card img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 15px;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -91,6 +97,7 @@
         <div class="response-card" id="responseCard">
             <h2>Suggested Response</h2>
             <p id="responseText"></p>
+            <img id="successImage" src="/api/placeholder/400/300" alt="Success celebration">
         </div>
     </div>
 
@@ -126,13 +133,15 @@
             },
             {
                 rejection: "YESSS, I got a meeting",
-                reply: "Congratulations on securing the meeting! Great job overcoming objections and making progress with the prospect."
+                reply: "Congratulations on securing the meeting! Great job overcoming objections and making progress with the prospect.",
+                showImage: true
             }
         ];
 
         const buttonGrid = document.getElementById('buttonGrid');
         const responseCard = document.getElementById('responseCard');
         const responseText = document.getElementById('responseText');
+        const successImage = document.getElementById('successImage');
 
         responses.forEach((item, index) => {
             const button = document.createElement('button');
@@ -146,6 +155,11 @@
             button.addEventListener('click', () => {
                 responseText.textContent = item.reply;
                 responseCard.style.display = 'block';
+                if (item.showImage) {
+                    successImage.style.display = 'block';
+                } else {
+                    successImage.style.display = 'none';
+                }
             });
             buttonGrid.appendChild(button);
         });
