@@ -46,9 +46,15 @@
             transition: background-color 0.3s;
             text-align: left;
             border-radius: 10px;
+            width: 100%;
         }
         button:hover {
             background-color: #0f766e;
+        }
+        .center-button {
+            grid-column: 1 / -1;
+            justify-self: center;
+            max-width: 300px;
         }
         .response-card {
             background-color: #0d3b39;
@@ -105,6 +111,10 @@
             {
                 rejection: "I don't like you!",
                 reply: "Please accept a meeting."
+            },
+            {
+                rejection: "Where did you get my number?",
+                reply: "Would you believe me if I said I guessed it?"
             }
         ];
 
@@ -112,9 +122,12 @@
         const responseCard = document.getElementById('responseCard');
         const responseText = document.getElementById('responseText');
 
-        responses.forEach(item => {
+        responses.forEach((item, index) => {
             const button = document.createElement('button');
             button.textContent = item.rejection;
+            if (index === responses.length - 1) {
+                button.classList.add('center-button');
+            }
             button.addEventListener('click', () => {
                 responseText.textContent = item.reply;
                 responseCard.style.display = 'block';
