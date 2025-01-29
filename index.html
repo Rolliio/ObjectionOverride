@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ObjectionOverride Gators</title>
+    <title>Objection Override</title>
     <link href="https://fonts.googleapis.com/css2?family=Graduate&display=swap" rel="stylesheet">
     <style>
         body {
@@ -56,7 +56,13 @@
             background-color: #FA4616;
             transform: scale(1.05);
         }
-        .go-gators-button {
+        .center-button {
+            grid-column: 1 / -1;
+            justify-self: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        .meeting-booked-button {
             grid-column: 1 / -1;
             background-color: #FA4616;
             color: #FFFFFF;
@@ -64,7 +70,7 @@
             padding: 20px;
             margin-top: 10px;
         }
-        .go-gators-button:hover {
+        .meeting-booked-button:hover {
             background-color: #0021A5;
             color: #FA4616;
         }
@@ -73,6 +79,8 @@
             border-top: 4px solid #FA4616;
             padding: 20px;
             display: none;
+            max-height: 400px;
+            overflow-y: auto;
         }
         .response-card h2 {
             color: #0021A5;
@@ -91,101 +99,172 @@
             color: #0021A5;
             font-style: italic;
         }
-        .me {
+        .you {
             color: #FA4616;
             font-weight: bold;
-        }
-        .image-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .image-container img {
-            max-width: 100%;
-            height: auto;
-            display: none;
-            border: 3px solid #0021A5;
-            border-radius: 5px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="titlebar">
-            ObjectionOverride Gators
+            Objection Override
         </div>
         <div class="button-grid" id="buttonGrid"></div>
         <div class="response-card" id="responseCard">
-            <h2>Gator Response</h2>
+            <h2>Suggested Response</h2>
             <div id="responseText"></div>
-            <div class="image-container">
-                <img id="successImage" src="https://upload.wikimedia.org/wikipedia/en/thumb/1/14/Florida_Gators_gator_logo.svg/1200px-Florida_Gators_gator_logo.svg.png" alt="Gator Success">
-            </div>
         </div>
     </div>
 
     <script>
         const responses = [
             {
-                rejection: "I don't take cold calls",
-                reply: "Is that because you hate cold calls, or you don't like the sound of my voice?"
-            },
-            {
                 rejection: "I'm not interested",
-                reply: "I understand. May I ask what specifically you're not interested in?"
+                reply: `<p class="you">My bad (name). I guess either my pitch was terrible, or you would've reached out to us if you were interested.</p>
+                        <p class="you">Just so no one calls you again, could you be brutally honest with me…</p>
+                        <p class="you">Is it that you've got a solution, you're not thinking about this problem at all, or you just hate getting cold calls? And it's okay if it's #3!</p>
+                        <p class="prospect">We're already working with Aislelabs.</p>
+                        <p class="you">Ahh, yeah, a great company that we come up against a lot. Does this mean you're tied in for the long haul?</p>
+                        <p class="prospect">Not sure/yes/no</p>
+                        <p class="you">I get it. Hey, you're probably not gonna buy this thing now. But if they were to hike prices up, it would be good to know your options. Open to taking a look before that, so you at least know what's out there?</p>`
             },
             {
-                rejection: "I'm busy right now",
-                reply: "No problem. When would be a better time for me to reach out?"
+                rejection: "Call me in 6 months",
+                reply: `<p class="you">Totally makes sense. I guess if you were ready now, you would've reached out to us.</p>
+                        <p class="you">Just so I don't sound like an idiot when I call back, was there something specific happening in 6 months or are you just swamped?</p>
+                        <p class="prospect">We're hiring a new CMO and nothing's changing until then.</p>
+                        <p class="you">Yeah, I wouldn't wanna make any big decisions before then either.</p>
+                        <p class="you">Hey, crazy idea. I know you're not gonna buy this now, but oftentimes a CMO comes in and wants to see what tools are at their disposal.</p>
+                        <p class="you">If nothing else, would you be opposed to taking a look so that you can give them a sense of their options when they arrive?</p>`
             },
             {
-                rejection: "We already have a supplier",
-                reply: "That's great! I'm curious, what do you like most about your current supplier?"
+                rejection: "Send me some info",
+                reply: `<p class="you">Oh, for sure. I'd wanna digest it all first too.</p>
+                        <p class="you">Just so I don't clutter your inbox, was there a specific question you had in mind or just a general overview?</p>
+                        <p class="prospect">Just send a general overview.</p>
+                        <p class="you">Ha ha, I'm the king of "this meeting should've been an email" too. But I'll be honest: those PDFs aren't gonna be relevant at all ….. and you'll know if this is a fit in the first 15 minutes. Opposed to taking a look, and if it's not a fit, I can give you 15 back?</p>
+                        <p class="prospect">No, no, I'd really prefer some information.</p>
+                        <p class="you">Okay, waving my white flag! Before I go, mind if I ask you a brutally honest question?</p>
+                        <p class="prospect">Sure.</p>
+                        <p class="you">When folks tell me to send them some info, they're just too nice to tell me to go away. Is that what's happening?</p>
+                        <p class="prospect">No, of course not! I promise I'll at least take a look.</p>
+                        <p class="you">Okay, here's our deal. I'll send you the info, call out exactly what's relevant to you, and send a placeholder invite for next week. If you don't like it, you can just decline the invite. Fair?</p>`
             },
             {
-                rejection: "Just send me some information",
-                reply: "I'd be happy to. To ensure I send the most relevant information, could you tell me what aspect of our service interests you the most?"
+                rejection: "Just send me an email",
+                reply: `<p class="you">Okay, mind me asking a cheeky question before I go?</p>
+                        <p class="prospect">Sure</p>
+                        <p class="you">Have you ever received an email that's better than a conversation?</p>
+                        <p class="prospect">Yes/No</p>
+                        <p class="you">Then they must be some bad conversations (laughing)</p>
+                        <p class="you">When folks tell me to send them an email, they're just too nice to tell me to go away. Is that what's happening?</p>
+                        <p class="prospect">No, of course not! I promise I'll at least take a look.</p>
+                        <p class="you">Okay, here's our deal. I'll send you the info, call out exactly what's relevant to you, and send a placeholder invite for next week. If you don't like it, you can just decline the invite. Fair?</p>`
             },
             {
-                rejection: "I don't like you!",
-                reply: "Please accept a meeting."
+                rejection: "Not my responsibility/role",
+                reply: `<p class="you">Ah, my bad. It's funny; this kind of thing usually either lives with you as the Head of marketing or with your Head of CRM. Guess I was wrong here.</p>
+                        <p class="you">Just so I don't bug the wrong person, is this in Jane's court? (Their Head of CRM)</p>
+                        <p class="prospect">Yeah, Jane would be the one.</p>
+                        <p class="you">Could I ask you for an extremely unreasonable favour from a complete stranger?</p>
+                        <p class="prospect">Sure</p>
+                        <p class="you">I was going to send her a note after this. Mind if I let her know we spoke?</p>`
             },
             {
-                rejection: "Where did you get my number?",
-                reply: "Would you believe me if I said I guessed it?"
+                rejection: "Where'd ya get my number",
+                reply: `<p class="you">Would you believe me if I told you I guessed it? Just kidding, It's a contact database called Kaspa/Lucha/Apollo.</p>
+                        <p class="you">It sounds like I really ruined your day here, so I'd be happy to send you a screenshot of what they have on file so you know what's out there.</p>
+                        <p class="prospect">Well... that's fine, I don't need that.</p>
+                        <p class="you">Look, I don't love making these calls, and I know you don't love getting them. But I actually prepared for this one.</p>
+                        <p class="you">Just so no one calls you again, could I tell you why I called you specifically, then you can hang up on me from there?</p>`
+            },
+            {
+                rejection: "I'm in a meeting (LIES!!)",
+                reply: `<p class="you">Oh shoot! Well, if you want, you can put me on speaker to publicly apologise to the group, and I can really bomb on this one.</p>
+                        <p class="prospect">No, no ... what's this about?</p>
+                        <p class="you">But actually, I'd hate to interrupt you again.</p>
+                        <p class="you">Would you rather have me send an invite to call you back at the top of the hour or briefly tell you why I called now so I don't bug ya again?</p>`
+            },
+            {
+                rejection: "Is this a cold call!?",
+                reply: `<p class="you">Yes, and it's clearly going badly.</p>
+                        <p class="you">Look, I know you probably hate getting cold calls. I honestly don't like making them either, but I took some time to research you personally because everyone hates telemarketers.</p>
+                        <p class="you">Just so no one from my team ruins your day again, could I tell you why I called, and, if nothing else, you can hang up on me then if it's really not a fit?</p>`
+            },
+            {
+                rejection: "I don't take cold calls",
+                reply: `<p class="you">Is that because you hate cold calls or just the sound of my voice?</p>
+                        <p class="prospect">Cold calls</p>
+                        <p class="you">Well, I kinda hate having to make them myself. However, this is a well-researched one. Mind if I take a few seconds to tell you why I'm calling you specifically?</p>`
+            },
+            {
+                rejection: "I thought you were someone else",
+                reply: `<p class="you">Well, I can change my tone of voice and pretend to be someone different if you'd like!</p>
+                        <p class="you">But actually, I hate it when I'm waiting for a call, then I pick up and someone's trying to sell me something.</p>
+                        <p class="you">So, I'd hate to do this to you twice.</p>
+                        <p class="you">Could I just tell you why I called you, and I promise if that person calls you back, you can hang up?</p>`
+            },
+            {
+                rejection: "I can't talk now; I'm crazy busy",
+                reply: `<p class="you">Grant, you and I last spoke on October 19th around 2:30 in the afternoon. At the time, you couldn't talk because you were crazy busy preparing for a big meeting, and you admittedly hung up on me.</p>
+                        <p class="you">I know I was an interruption, and I guess I'm interrupting you now... but I promise I prepped for this one, and I'm calling you for a reason.</p>
+                        <p class="you">Could I at least tell you why I called you back, and if it's not a fit, then you can hang up on me from there?</p>`
             },
             {
                 rejection: "Sorry, we don't have any budget",
-                reply: `<p class="prospect">Prospect: Sorry, we don't have any budget.</p>
-                        <p class="me">Me: I hear ya. Nowadays, it's hard enough to keep your budget, let alone add something new. Just so no one calls you again, is it that there's no budget for this cycle or that any spend whatsoever requires you to do a triple backflip?</p>
-                        <p class="prospect">Prospect: It's a bit of both, to be frank. We're really tight right now.</p>
-                        <p class="me">Me: I get it. Hey, you're probably not gonna buy this thing now. But if budget ever frees up, the people who get it at least have a directional sense of what they'd want. Open to taking a look, so you at least know what's out there?</p>`
+                reply: `<p class="you">I hear ya. Nowadays, it's hard enough to keep your budget, let alone add something new.</p>
+                        <p class="you">Just so no one calls you again, is it that there's no budget for this cycle or that any spend whatsoever requires you to do a triple backflip?</p>
+                        <p class="prospect">It's a bit of both, to be frank. We're really tight right now.</p>
+                        <p class="you">I get it. Hey, you're probably not gonna buy this thing now. But if budget ever frees up, the people who get it at least have a directional sense of what they'd want. Open to taking a look, so you at least know what's out there?</p>`
             },
             {
-                rejection: "GO GATORS!",
-                reply: "Chomp Chomp! You've secured the meeting like a true Gator! Great job overcoming objections and making progress with the prospect.",
-                showImage: true
+                rejection: "Too expensive!",
+                reply: `<p class="you">Oh, that's interesting. Look, we're never the cheapest, but we've dramatically changed our approach and pricing.</p>
+                        <p class="you">If you don't mind me asking, just so no one calls again, was it the sheer amount quoted or the fact that you didn't see enough value for the price?</p>
+                        <p class="prospect">It looked cool, but we're paying around £12k per year now and couldn't justify paying £20k with you.</p>
+                        <p class="you">Phew. That's not crazy far off and we can be flexible depending on what you need.</p>
+                        <p class="you">You might've had a price that included more than you needed, or maybe it wasn't clear what the extra £8k was gonna get you.</p>
+                        <p class="you">The way we've modularised, it's gonna be way cheaper. Could I at least walk you through a few options so you know what's out there?</p>`
+            },
+            {
+                rejection: "No Resources/Bandwidth",
+                reply: `<p class="you">I hear you. Literally every marketer we talk to today has 3 jobs.</p>
+                        <p class="you">I'd hate to bug you again when you're already swamped. Mind me asking, is this just a temporary phase, or does it look like you're gonna be swamped until 2032?</p>
+                        <p class="prospect">Ha ha, feels like 2030 at this point.</p>
+                        <p class="you">I figured. Well, I'll pencil the contract start date for January 1st, 2032 for now. Look, I know you're swamped. But our best customers are lean teams who need some extra firepower behind them.</p>
+                        <p class="you">You might not buy this. But, could I just show you how we help other folks, just so that you know what's out there?</p>`
+            },
+            {
+                rejection: "We can't take this on until we hire someone",
+                reply: `<p class="you">I hear you. No one wants to make a big decision that gets unwound when the new boss arrives.</p>
+                        <p class="you">I'd hate to bug you before they're onboard; is the search just getting started, or does the new CMO have a start date?</p>
+                        <p class="prospect">The search just started, so probably 1-2 quarters.</p>
+                        <p class="you">Yeah, you're probably not gonna buy this now. But, sometimes the new CMO comes in with big ideas, and she'll wanna know what's at her disposal.</p>
+                        <p class="you">So, would you be opposed to taking a look so you have a list of things in your toolkit that you can share with the new head honcho?</p>`
+            },
+            {
+                rejection: "MEETING BOOKED!!",
+                reply: `<p class="you">Congratulations! You've overcome all objections like a true sales champion! Great job making progress with the prospect. Now let's close that deal!</p>`
             }
         ];
 
         const buttonGrid = document.getElementById('buttonGrid');
         const responseCard = document.getElementById('responseCard');
         const responseText = document.getElementById('responseText');
-        const successImage = document.getElementById('successImage');
 
         responses.forEach((item, index) => {
             const button = document.createElement('button');
             button.textContent = item.rejection;
-            if (item.rejection === "GO GATORS!") {
-                button.classList.add('go-gators-button');
+            if (item.rejection === "We can't take this on until we hire someone") {
+                button.classList.add('center-button');
+            }
+            if (item.rejection === "MEETING BOOKED!!") {
+                button.classList.add('meeting-booked-button');
             }
             button.addEventListener('click', () => {
                 responseText.innerHTML = item.reply;
                 responseCard.style.display = 'block';
-                if (item.showImage) {
-                    successImage.style.display = 'block';
-                } else {
-                    successImage.style.display = 'none';
-                }
             });
             buttonGrid.appendChild(button);
         });
