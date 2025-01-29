@@ -82,10 +82,13 @@
             color: #ffffff;
             margin-bottom: 0;
         }
+        .response-card .image-container {
+            text-align: center;
+            margin-top: 15px;
+        }
         .response-card img {
             max-width: 100%;
             height: auto;
-            margin-top: 15px;
             display: none;
         }
     </style>
@@ -97,7 +100,9 @@
         <div class="response-card" id="responseCard">
             <h2>Suggested Response</h2>
             <p id="responseText"></p>
-            <img id="successImage" src="https://pbs.twimg.com/media/GdbBSOHXMAA5yHS.jpg" alt="Success celebration">
+            <div class="image-container">
+                <img id="successImage" src="/api/placeholder/400/300" alt="Success celebration">
+            </div>
         </div>
     </div>
 
