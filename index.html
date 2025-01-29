@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ObjectionOverride</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <title>ObjectionOverride Gators</title>
+    <link href="https://fonts.googleapis.com/css2?family=Graduate&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Cinzel', serif;
-            background-color: #134e4a;
-            color: #ff3b3f;
+            font-family: 'Graduate', cursive;
+            background-color: #0021A5;
+            color: #FA4616;
             margin: 0;
             padding: 20px;
             min-height: 100vh;
@@ -18,90 +18,107 @@
         .container {
             max-width: 800px;
             margin: 0 auto;
+            background-color: #FFFFFF;
+            border: 4px solid #FA4616;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
-        h1 {
+        .titlebar {
+            background-color: #FA4616;
+            color: #FFFFFF;
+            padding: 15px;
             text-align: center;
-            margin-bottom: 30px;
-            font-weight: 700;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
         .button-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        @media (min-width: 640px) {
-            .button-grid {
-                grid-template-columns: 1fr 1fr;
-            }
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 20px;
         }
         button {
-            font-family: 'Cinzel', serif;
-            background-color: #0d3b39;
-            color: #ff3b3f;
-            border: 2px solid #ff3b3f;
-            padding: 10px 15px;
+            font-family: 'Graduate', cursive;
+            background-color: #0021A5;
+            color: #FFFFFF;
+            border: none;
+            padding: 15px;
             font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s;
-            text-align: left;
-            border-radius: 10px;
-            width: 100%;
+            text-align: center;
+            transition: all 0.3s;
+            border-radius: 5px;
+            text-transform: uppercase;
         }
         button:hover {
-            background-color: #0f766e;
+            background-color: #FA4616;
+            transform: scale(1.05);
         }
-        .center-button {
+        .go-gators-button {
             grid-column: 1 / -1;
-            justify-self: center;
-            max-width: 300px;
+            background-color: #FA4616;
+            color: #FFFFFF;
+            font-size: 20px;
+            padding: 20px;
+            margin-top: 10px;
         }
-        .success-button {
-            background-color: #ff3b3f;
-            color: #0d3b39;
-            font-weight: bold;
-        }
-        .success-button:hover {
-            background-color: #ff6b6e;
+        .go-gators-button:hover {
+            background-color: #0021A5;
+            color: #FA4616;
         }
         .response-card {
-            background-color: #0d3b39;
-            border: 2px solid #ff3b3f;
+            background-color: #F2F2F2;
+            border-top: 4px solid #FA4616;
             padding: 20px;
-            margin-top: 20px;
             display: none;
         }
         .response-card h2 {
-            color: #ff3b3f;
-            border-bottom: 2px solid #ff3b3f;
-            padding-bottom: 10px;
+            color: #0021A5;
+            font-size: 20px;
             margin-top: 0;
-            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
         }
         .response-card p {
-            color: #ffffff;
-            margin-bottom: 0;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 16px;
+            line-height: 1.5;
         }
-        .response-card .image-container {
+        .prospect {
+            color: #0021A5;
+            font-style: italic;
+        }
+        .me {
+            color: #FA4616;
+            font-weight: bold;
+        }
+        .image-container {
             text-align: center;
-            margin-top: 15px;
+            margin-top: 20px;
         }
-        .response-card img {
+        .image-container img {
             max-width: 100%;
             height: auto;
             display: none;
+            border: 3px solid #0021A5;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>ObjectionOverride</h1>
+        <div class="titlebar">
+            ObjectionOverride Gators
+        </div>
         <div class="button-grid" id="buttonGrid"></div>
         <div class="response-card" id="responseCard">
-            <h2>Suggested Response</h2>
-            <p id="responseText"></p>
+            <h2>Gator Response</h2>
+            <div id="responseText"></div>
             <div class="image-container">
-                <img id="successImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZGz5AftvAC_jBejFxM0pCeHS9YmvZxh0YUg&s" alt="Success celebration">
+                <img id="successImage" src="/api/placeholder/400/300" alt="Gator Success">
             </div>
         </div>
     </div>
@@ -137,8 +154,15 @@
                 reply: "Would you believe me if I said I guessed it?"
             },
             {
-                rejection: "YESSS, I got a meeting",
-                reply: "Congratulations on securing the meeting! Great job overcoming objections and making progress with the prospect.",
+                rejection: "Sorry, we don't have any budget",
+                reply: `<p class="prospect">Prospect: Sorry, we don't have any budget.</p>
+                        <p class="me">Me: I hear ya. Nowadays, it's hard enough to keep your budget, let alone add something new. Just so no one calls you again, is it that there's no budget for this cycle or that any spend whatsoever requires you to do a triple backflip?</p>
+                        <p class="prospect">Prospect: It's a bit of both, to be frank. We're really tight right now.</p>
+                        <p class="me">Me: I get it. Hey, you're probably not gonna buy this thing now. But if budget ever frees up, the people who get it at least have a directional sense of what they'd want. Open to taking a look, so you at least know what's out there?</p>`
+            },
+            {
+                rejection: "GO GATORS!",
+                reply: "Chomp Chomp! You've secured the meeting like a true Gator! Great job overcoming objections and making progress with the prospect.",
                 showImage: true
             }
         ];
@@ -151,14 +175,11 @@
         responses.forEach((item, index) => {
             const button = document.createElement('button');
             button.textContent = item.rejection;
-            if (index === responses.length - 2 || index === responses.length - 1) {
-                button.classList.add('center-button');
-            }
-            if (index === responses.length - 1) {
-                button.classList.add('success-button');
+            if (item.rejection === "GO GATORS!") {
+                button.classList.add('go-gators-button');
             }
             button.addEventListener('click', () => {
-                responseText.textContent = item.reply;
+                responseText.innerHTML = item.reply;
                 responseCard.style.display = 'block';
                 if (item.showImage) {
                     successImage.style.display = 'block';
