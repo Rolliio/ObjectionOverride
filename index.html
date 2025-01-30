@@ -52,7 +52,7 @@
             border-radius: 5px;
             text-transform: uppercase;
         }
-        button:hover {
+        button:hover, button.selected {
             background-color: #FA4616;
             transform: scale(1.05);
         }
@@ -102,6 +102,11 @@
         .you {
             color: #FA4616;
             font-weight: bold;
+        }
+        .gator-logo {
+            display: block;
+            margin: 20px auto;
+            max-width: 100px;
         }
     </style>
 </head>
@@ -244,15 +249,16 @@
                         <p class="you">So, would you be opposed to taking a look so you have a list of things in your toolkit that you can share with the new head honcho?</p>`
             },
             {
-    rejection: "MEETING BOOKED!!",
-    reply: `<p class="you">Congratulations! You've overcome all objections like a true sales champion! Great job making progress with the prospect. Now let's close that deal!</p>
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/14/Florida_Gators_gator_logo.svg/400px-Florida_Gators_gator_logo.svg.png" alt="Florida Gators Logo" class="gator-logo">`
-}
+                rejection: "MEETING BOOKED!!",
+                reply: `<p class="you">Congratulations! You've overcome all objections like a true sales champion! Great job making progress with the prospect. Now let's close that deal!</p>
+                        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/14/Florida_Gators_gator_logo.svg/400px-Florida_Gators_gator_logo.svg.png" alt="Florida Gators Logo" class="gator-logo">`
+            }
         ];
 
         const buttonGrid = document.getElementById('buttonGrid');
         const responseCard = document.getElementById('responseCard');
         const responseText = document.getElementById('responseText');
+        let selectedButton = null;
 
         responses.forEach((item, index) => {
             const button = document.createElement('button');
@@ -266,6 +272,13 @@
             button.addEventListener('click', () => {
                 responseText.innerHTML = item.reply;
                 responseCard.style.display = 'block';
+                
+                if (selectedButton) {
+                    selectedButton.classList.remove('selected');
+                }
+                
+                button.classList.add('selected');
+                selectedButton = button;
             });
             buttonGrid.appendChild(button);
         });
